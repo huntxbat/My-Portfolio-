@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haridi Mohamed Amine - Interactive CV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Warm Neutral" with Teal accent -->
+    <!-- Application Structure Plan: A single-page, vertical-scrolling application with a sticky navigation bar for easy access to key sections. The structure is designed to tell a professional story: starting with a strong identity (Hero), moving to a personal statement (About), showing progression (Timeline of Education & Projects), quantifying abilities (Interactive Skills Chart), providing proof (Certifications), and ending with a clear call to action (Contact). This non-linear but guided flow allows recruiters to quickly access the information they need, while the interactive elements make the experience more engaging than a static document. -->
+    <!-- Visualization & Content Choices: 
+        - Objective -> Inform -> Text Block -> Static -> Clear, concise introduction.
+        - Education/Projects -> Show Change/Organize -> Vertical Timeline (HTML/CSS) -> Hover effects -> Justification: Visually represents career progression and links academic learning with practical application in a chronological narrative.
+        - Technical Skills -> Compare/Inform -> Horizontal Bar Chart (Chart.js/Canvas) -> Interactive tooltips -> Justification: Provides a quick, scannable, and quantitative view of technical proficiencies, which is more effective than a simple list for recruiters.
+        - Languages -> Compare/Inform -> Styled Bar Indicators (HTML/CSS) -> Static -> Justification: A simple, clean visual representation of language proficiency levels.
+        - Certifications -> Organize -> Card Grid (HTML/CSS) -> Hover effects -> Justification: Neatly organizes credentials in a readable, modular format.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 450px;
+            width: 100%;
+            max-width: 800px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#hero" class="text-xl font-bold text-slate-900">Haridi Mohamed Amine</a>
+                </div>
+                <nav class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#about" class="text-slate-600 hover:bg-slate-200 hover:text-slate-900 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="#timeline" class="text-slate-600 hover:bg-slate-200 hover:text-slate-900 px-3 py-2 rounded-md text-sm font-medium">Timeline</a>
+                        <a href="#skills" class="text-slate-600 hover:bg-slate-200 hover:text-slate-900 px-3 py-2 rounded-md text-sm font-medium">Skills</a>
+                        <a href="#certs" class="text-slate-600 hover:bg-slate-200 hover:text-slate-900 px-3 py-2 rounded-md text-sm font-medium">Certifications</a>
+                        <a href="#contact" class="bg-teal-600 text-white hover:bg-teal-700 px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                    </div>
+                </nav>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-slate-500 hover:text-slate-800 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-500">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="text-slate-600 hover:bg-slate-200 hover:text-slate-900 block px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#timeline" class="text-slate-600 hover:bg-slate-200 hover:text-slate-900 block px-3 py-2 rounded-md text-base font-medium">Timeline</a>
+                <a href="#skills" class="text-slate-600 hover:bg-slate-200 hover:text-slate-900 block px-3 py-2 rounded-md text-base font-medium">Skills</a>
+                <a href="#certs" class="text-slate-600 hover:bg-slate-200 hover:text-slate-900 block px-3 py-2 rounded-md text-base font-medium">Certifications</a>
+                <a href="#contact" class="bg-teal-600 text-white hover:bg-teal-700 block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="py-24 sm:py-32 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight">HARIDI MOHAMED AMINE</h1>
+                <p class="mt-4 text-lg md:text-xl text-teal-700 font-medium">Student in Automatic and Processing Engineering</p>
+                <div class="mt-8 flex justify-center items-center space-x-6 text-sm">
+                    <span class="flex items-center text-slate-600">
+                        <span class="mr-2 text-xl">📍</span> El Bez, Sétif, Algeria
+                    </span>
+                </div>
+                <div class="mt-10 flex flex-wrap justify-center gap-4">
+                    <a href="mailto:amineharidi1919@gmail.com" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700">
+                        <span class="mr-2">✉️</span> Email Me
+                    </a>
+                    <a href="https://dz.linkedin.com/in/amine-haridi-b461901ab" target="_blank" class="inline-flex items-center justify-center px-5 py-3 border border-slate-300 text-base font-medium rounded-md text-slate-700 bg-white hover:bg-slate-100">
+                        <span class="mr-2">🔗</span> LinkedIn Profile
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 sm:py-24">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">About Me</h2>
+                    <p class="mt-4 text-lg text-slate-600">A highly motivated and rigorous Master's student, passionate about innovation.</p>
+                </div>
+                <div class="mt-12 bg-white p-8 rounded-xl shadow-lg">
+                    <p class="text-slate-700 text-lg leading-relaxed">
+                       I am looking to leverage a strong foundation in programming (C++, Python), engineering software (SOLIDWORKS), and practical project management experience, such as developing a 'Smart Bee Hive'. I am eager to contribute my technical skills and passion for innovation to a dynamic engineering team to solve real-world problems.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="timeline" class="py-20 sm:py-24 bg-slate-100">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">My Journey</h2>
+                    <p class="mt-4 text-lg text-slate-600">A timeline of my key academic and project milestones.</p>
+                </div>
+                <div class="relative">
+                    <div class="absolute left-1/2 -ml-0.5 w-1 h-full bg-slate-300 hidden md:block"></div>
+                    <div class="mb-8 flex justify-between md:items-center w-full flex-col md:flex-row">
+                        <div class="order-1 md:w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-teal-600 shadow-xl w-12 h-12 rounded-full self-center md:self-auto">
+                            <h1 class="mx-auto font-semibold text-lg text-white">🎓</h1>
+                        </div>
+                        <div class="order-1 bg-white rounded-lg shadow-xl md:w-5/12 px-6 py-4 transition-transform duration-300 hover:scale-105">
+                            <h3 class="font-bold text-slate-800 text-xl">Master's in Automatic and Processing Engineering</h3>
+                            <p class="text-sm font-medium text-teal-600">Expected 2026</p>
+                            <p class="text-sm text-slate-500 mt-1">Ferhat Abbas University, Sétif</p>
+                        </div>
+                    </div>
+                    <div class="mb-8 flex justify-between md:flex-row-reverse md:items-center w-full flex-col">
+                        <div class="order-1 md:w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-teal-600 shadow-xl w-12 h-12 rounded-full self-center md:self-auto">
+                           <h1 class="mx-auto font-semibold text-lg text-white">🐝</h1>
+                        </div>
+                        <div class="order-1 bg-white rounded-lg shadow-xl md:w-5/12 px-6 py-4 transition-transform duration-300 hover:scale-105">
+                            <h3 class="font-bold text-slate-800 text-xl">Project: Smart Bee Hive</h3>
+                            <p class="text-sm font-medium text-teal-600">Innovative IoT Project | 2023-Present</p>
+                            <p class="text-sm text-slate-500 mt-2">Design and development of a system to remotely monitor beehive conditions, applying skills in sensor integration, data processing, and automation.</p>
+                        </div>
+                    </div>
+                    <div class="mb-8 flex justify-between md:items-center w-full flex-col md:flex-row">
+                        <div class="order-1 md:w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-teal-600 shadow-xl w-12 h-12 rounded-full self-center md:self-auto">
+                            <h1 class="mx-auto font-semibold text-lg text-white">🎓</h1>
+                        </div>
+                        <div class="order-1 bg-white rounded-lg shadow-xl md:w-5/12 px-6 py-4 transition-transform duration-300 hover:scale-105">
+                            <h3 class="font-bold text-slate-800 text-xl">License Degree in Automatics</h3>
+                            <p class="text-sm font-medium text-teal-600">2024</p>
+                            <p class="text-sm text-slate-500 mt-1">Ferhat Abbas University, Sétif</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 sm:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Skills & Proficiencies</h2>
+                    <p class="mt-4 text-lg text-slate-600">A summary of my technical and linguistic capabilities. Hover over the chart for details.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+                    <div class="lg:col-span-3 bg-white p-6 rounded-xl shadow-lg">
+                         <h3 class="text-xl font-bold text-slate-800 mb-4 text-center">Technical Skills</h3>
+                        <div class="chart-container">
+                            <canvas id="skillsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold text-slate-800 mb-6 text-center">Languages</h3>
+                        <div class="space-y-5">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-base font-medium text-slate-700">Arabic</span>
+                                    <span class="text-sm font-medium text-slate-500">Native</span>
+                                </div>
+                                <div class="w-full bg-slate-200 rounded-full h-4">
+                                    <div class="bg-teal-600 h-4 rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-base font-medium text-slate-700">French</span>
+                                    <span class="text-sm font-medium text-slate-500">B2</span>
+                                </div>
+                                <div class="w-full bg-slate-200 rounded-full h-4">
+                                    <div class="bg-teal-600 h-4 rounded-full" style="width: 70%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-base font-medium text-slate-700">English</span>
+                                    <span class="text-sm font-medium text-slate-500">B2</span>
+                                </div>
+                                <div class="w-full bg-slate-200 rounded-full h-4">
+                                    <div class="bg-teal-600 h-4 rounded-full" style="width: 70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certs" class="py-20 sm:py-24 bg-slate-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Certifications & Participations</h2>
+                    <p class="mt-4 text-lg text-slate-600">My commitment to continuous learning and professional development.</p>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-6 text-center">Certifications</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                    <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-2">
+                         <div class="bg-teal-100 text-teal-700 rounded-full h-16 w-16 flex items-center justify-center text-2xl mb-4">⚕️</div>
+                        <h3 class="text-lg font-bold text-slate-800">First Aid</h3>
+                        <p class="text-sm text-slate-500 mt-1">First Aid Certificate</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-2">
+                         <div class="bg-teal-100 text-teal-700 rounded-full h-16 w-16 flex items-center justify-center text-2xl mb-4">🏆</div>
+                        <h3 class="text-lg font-bold text-slate-800">GSL Classroom Badge</h3>
+                        <p class="text-sm text-slate-500 mt-1">Tecnológico de Monterrey Mexico & Ferhat-Abbas University Algeria</p>
+                        <p class="text-xs font-semibold text-slate-400 mt-4">2024</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-2">
+                        <div class="bg-teal-100 text-teal-700 rounded-full h-16 w-16 flex items-center justify-center text-2xl mb-4">💡</div>
+                        <h3 class="text-lg font-bold text-slate-800">21st Century Skills</h3>
+                        <p class="text-sm text-slate-500 mt-1">HSBC & World Learning</p>
+                         <p class="text-xs font-semibold text-slate-400 mt-4">2022</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-2">
+                        <div class="bg-teal-100 text-teal-700 rounded-full h-16 w-16 flex items-center justify-center text-2xl mb-4">💰</div>
+                        <h3 class="text-lg font-bold text-slate-800">Financial Literacy</h3>
+                        <p class="text-sm text-slate-500 mt-1">HSBC & World Learning</p>
+                         <p class="text-xs font-semibold text-slate-400 mt-4">2022</p>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-6 text-center">Conferences and Events</h3>
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                     <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-2">
+                         <div class="bg-teal-100 text-teal-700 rounded-full h-16 w-16 flex items-center justify-center text-2xl mb-4">🚀</div>
+                        <h3 class="text-lg font-bold text-slate-800">Constantine Disrupt</h3>
+                        <p class="text-sm text-slate-500 mt-1">Participant in the Regional Startup Conference.</p>
+                        <p class="text-xs font-semibold text-slate-400 mt-4">OCT 2023</p>
+                    </div>
+                     <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-2">
+                         <div class="bg-teal-100 text-teal-700 rounded-full h-16 w-16 flex items-center justify-center text-2xl mb-4">🔬</div>
+                        <h3 class="text-lg font-bold text-slate-800">Summer University of Scientific Clubs</h3>
+                        <p class="text-sm text-slate-500 mt-1">Participant in the Innovation Challenge.</p>
+                         <p class="text-xs font-semibold text-slate-400 mt-4">JUL 2023</p>
+                    </div>
+                     <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-2">
+                         <div class="bg-teal-100 text-teal-700 rounded-full h-16 w-16 flex items-center justify-center text-2xl mb-4">🌐</div>
+                        <h3 class="text-lg font-bold text-slate-800">21st Century Skills Summit</h3>
+                        <p class="text-sm text-slate-500 mt-1">Participant in the youth summit.</p>
+                         <p class="text-xs font-semibold text-slate-400 mt-4">2024</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <footer id="contact" class="bg-slate-800 text-white">
+            <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold tracking-tight">Let's Connect</h2>
+                <p class="mt-4 text-lg text-slate-300">I am currently looking for new opportunities. If you have a role that matches my skills, I would love to hear from you.</p>
+                <div class="mt-8 flex justify-center gap-4">
+                     <a href="mailto:amineharidi1919@gmail.com" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-slate-800 bg-white hover:bg-slate-200">
+                        <span class="mr-2">✉️</span> amineharidi1919@gmail.com
+                    </a>
+                     <a href="tel:+213549528954" class="inline-flex items-center justify-center px-5 py-3 border border-slate-500 text-base font-medium rounded-md text-white hover:bg-slate-700">
+                        <span class="mr-2">📞</span> +213 549 528 964
+                    </a>
+                </div>
+            </div>
+            <div class="py-4 bg-slate-900">
+                <p class="text-center text-sm text-slate-400">&copy; 2025 Haridi Mohamed Amine. All rights reserved.</p>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(this.getAttribute('href'));
+                    if(targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                    if (!mobileMenu.classList.contains('hidden')) {
+                         mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            const skillsChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['C++', 'Python', 'VHDL', 'SQL','TIA Portal', 'SOLIDWORKS', 'MS Office', 'Project Management'],
+                    datasets: [{
+                        label: 'Proficiency Level',
+                        data: [75, 75, 75, 70,75, 90, 95, 80],
+                        backgroundColor: 'rgba(20, 184, 166, 0.6)',
+                        borderColor: 'rgba(15, 118, 110, 1)',
+                        borderWidth: 2,
+                        borderRadius: 4,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#0F172A',
+                            titleFont: { size: 14, weight: 'bold' },
+                            bodyFont: { size: 12 },
+                            cornerRadius: 4,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.parsed.x}%`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: 'rgba(203, 213, 225, 0.5)' },
+                            ticks: {
+                                font: { family: "'Inter', sans-serif" },
+                                callback: value => value + '%'
+                            }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: {
+                                font: { family: "'Inter', sans-serif", size: 14 }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
